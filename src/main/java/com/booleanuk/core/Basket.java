@@ -21,6 +21,10 @@ public class Basket {
         return 1;
     }
 
+    public boolean remove(String sku) {
+        return items.remove(Stock.getItem(sku));
+    }
+
     public List<Item> getItems() {
         return items;
     }
