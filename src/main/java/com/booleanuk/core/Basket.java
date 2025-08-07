@@ -6,7 +6,7 @@ import java.util.List;
 public class Basket {
     private List<Item> items = new ArrayList<>();
     private int capacity;
-    static int stdCapacity = 5;
+    private static int stdCapacity = 5;
 
     public Basket() {
         this.capacity = stdCapacity;
@@ -29,5 +29,15 @@ public class Basket {
         return items;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
 
+    public static int getStdCapacity() {
+        return stdCapacity;
+    }
+
+    public static void setStdCapacity(int stdCapacity) {
+        Basket.stdCapacity = stdCapacity;
+    }
 }
