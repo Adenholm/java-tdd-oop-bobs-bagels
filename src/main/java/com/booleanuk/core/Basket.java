@@ -40,4 +40,12 @@ public class Basket {
     public static void setStdCapacity(int stdCapacity) {
         Basket.stdCapacity = stdCapacity;
     }
+
+    public float getTotalCost(){
+        float total = 0f;
+        for (Item item: items){
+            total += item.getPrice();
+        }
+        return total;
+    }
 }
