@@ -24,7 +24,7 @@ public class Bagel extends Item{
     }
 
     public boolean addFilling(Item filling){
-        if(!filling.getVariant().equals("Filling"))
+        if(!(filling instanceof Filling))
             return false;
         fillings.add(filling);
         return true;

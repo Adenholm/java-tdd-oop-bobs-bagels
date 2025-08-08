@@ -3,7 +3,6 @@ package com.booleanuk.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class Stock {
     static private List<Item> stock = Arrays.asList(
@@ -43,9 +42,27 @@ public class Stock {
     public static Item getItem(String sku) {
         for (Item item: stock){
             if (item.getSku().equals(sku)){
-                return item;
+                return copyItem(item);
             }
         }
         return null;
+    }
+
+    private static Item copyItem(Item item){
+        if (item instanceof Bagel)
+            return new Bagel(item.getSku(), item.getPrice(), item.getVariant());
+        if (item instanceof Coffee)
+            return new Coffee(item.getSku(), item.getPrice(), item.getVariant());
+        else
+            return new Filling(item.getSku(), item.getPrice(), item.getVariant());
+    }
+
+    public static List<Filling> getFillings() {
+        List<Filling> fillings = new ArrayList<>();
+        for (Item item: stock){
+            if (item instanceof Filling)
+                fillings.add((Filling)item);
+        }
+        return fillings;
     }
 }

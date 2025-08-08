@@ -21,6 +21,15 @@ public class Basket {
         return 1;
     }
 
+    public int add(Item item) {
+        if (items.size() >= capacity)
+            return 0;
+        if(!Stock.isInStock(item.getSku()))
+            return -1;
+        items.add(item);
+        return 1;
+    }
+
     public boolean remove(String sku) {
         return items.remove(Stock.getItem(sku));
     }
