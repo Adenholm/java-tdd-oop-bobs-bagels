@@ -31,7 +31,13 @@ public class Basket {
     }
 
     public boolean remove(String sku) {
-        return items.remove(Stock.getItem(sku));
+        for(Item item: items){
+            if(item.getSku().equals(sku)) {
+                items.remove(item);
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Item> getItems() {

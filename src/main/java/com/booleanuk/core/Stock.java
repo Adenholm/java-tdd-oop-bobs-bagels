@@ -22,14 +22,6 @@ public class Stock {
             new Filling("FILH", 0.12f, "Ham"));
 
 
-    public static List<Item> getStock() {
-        return stock;
-    }
-
-    public static void setStock(List<Item> stock) {
-        Stock.stock = stock;
-    }
-
     public static boolean isInStock(String sku) {
         for (Item item: stock){
             if (item.getSku().equals(sku)){
@@ -61,7 +53,7 @@ public class Stock {
         List<Filling> fillings = new ArrayList<>();
         for (Item item: stock){
             if (item instanceof Filling)
-                fillings.add((Filling)item);
+                fillings.add((Filling)copyItem(item));
         }
         return fillings;
     }
