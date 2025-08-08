@@ -82,4 +82,13 @@ public class BagelShopTest {
         Bagel bagel = (Bagel) Stock.getItem("BGLS");
         Assertions.assertFalse(bagel.addFilling(null));
     }
+
+    @Test
+    public void testAddingInvalidItemsToBasket(){
+        Basket basket = new Basket();
+        Assertions.assertEquals(-1, basket.add("BGLH"));
+        Assertions.assertTrue(basket.getItems().isEmpty());
+        Assertions.assertEquals(-1, basket.add((Item) null));
+        Assertions.assertTrue(basket.getItems().isEmpty());
+    }
 }
