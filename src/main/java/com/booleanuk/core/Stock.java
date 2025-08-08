@@ -7,20 +7,20 @@ import java.util.Objects;
 
 public class Stock {
     static private List<Item> stock = Arrays.asList(
-            new Item("BGLO", 0.49f, "Bagel", "Onion"),
-            new Item("BGLP", 0.39f, "Bagel", "Plain"),
-            new Item("BGLE", 0.49f, "Bagel", "Everything"),
-            new Item("BGLS", 0.49f, "Bagel", "Sesame"),
-            new Item("COFB", 0.99f, "Coffee", "Black"),
-            new Item("COFW", 1.19f, "Coffee", "White"),
-            new Item("COFC", 1.29f, "Coffee", "Cappuccino"),
-            new Item("COFL", 1.29f, "Coffee", "Latte"),
-            new Item("FILB", 0.12f, "Filling", "Bacon"),
-            new Item("FILE", 0.12f, "Filling", "Egg"),
-            new Item("FILC", 0.12f, "Filling", "Cheese"),
-            new Item("FILX", 0.12f, "Filling", "Cream Cheese"),
-            new Item("FILS", 0.12f, "Filling", "Smoked Salmon"),
-            new Item("FILH", 0.12f, "Filling", "Ham"));
+            new Bagel("BGLO", 0.49f, "Onion"),
+            new Bagel("BGLP", 0.39f, "Plain"),
+            new Bagel("BGLE", 0.49f, "Everything"),
+            new Bagel("BGLS", 0.49f, "Sesame"),
+            new Coffee("COFB", 0.99f, "Black"),
+            new Coffee("COFW", 1.19f, "White"),
+            new Coffee("COFC", 1.29f, "Cappuccino"),
+            new Coffee("COFL", 1.29f, "Latte"),
+            new Filling("FILB", 0.12f, "Bacon"),
+            new Filling("FILE", 0.12f, "Egg"),
+            new Filling("FILC", 0.12f, "Cheese"),
+            new Filling("FILX", 0.12f, "Cream Cheese"),
+            new Filling("FILS", 0.12f, "Smoked Salmon"),
+            new Filling("FILH", 0.12f, "Ham"));
 
 
     public static List<Item> getStock() {
