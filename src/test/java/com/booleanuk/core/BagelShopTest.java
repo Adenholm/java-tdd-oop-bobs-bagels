@@ -41,4 +41,16 @@ public class BagelShopTest {
         Basket basket2 = new Basket();
         Assertions.assertEquals(3, basket2.getCapacity());
     }
+
+    @Test
+    public void testTotalPrice(){
+        Basket basket = new Basket();
+        Assertions.assertEquals(0, basket.getTotalCost());
+        basket.add("BGLO");
+        Assertions.assertEquals(0.49f, basket.getTotalCost());
+        basket.add("BGLO");
+        Assertions.assertEquals(0.98f, basket.getTotalCost());
+        basket.add("COFB");
+        Assertions.assertEquals(1.97f, basket.getTotalCost());
+    }
 }
