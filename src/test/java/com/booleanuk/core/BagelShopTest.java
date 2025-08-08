@@ -89,4 +89,9 @@ public class BagelShopTest {
         Assertions.assertEquals(-1, basket.add((Item) null));
         Assertions.assertTrue(basket.getItems().isEmpty());
     }
+
+    @Test
+    public void testGetCostOfFillings(){
+        Assertions.assertEquals(0.12f, Stock.getFillings().getFirst().getPrice());
+    }
 }
