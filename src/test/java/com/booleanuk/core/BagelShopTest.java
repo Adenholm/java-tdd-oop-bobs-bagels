@@ -70,7 +70,6 @@ public class BagelShopTest {
 
     @Test
     public void testAddingFilling(){
-        Basket basket = new Basket();
         Bagel bagel = (Bagel) Stock.getItem("BGLS");
         Assertions.assertTrue(bagel.addFilling(Stock.getItem("FILE")));
         Assertions.assertEquals(1, bagel.getFillings().size());
@@ -78,7 +77,6 @@ public class BagelShopTest {
 
     @Test
     public void testAddingInvalidFilling(){
-        Basket basket = new Basket();
         Bagel bagel = (Bagel) Stock.getItem("BGLS");
         Assertions.assertFalse(bagel.addFilling(null));
     }

@@ -24,7 +24,7 @@ public class Basket {
     public int add(Item item) {
         if (items.size() >= capacity)
             return 0;
-        if(!Stock.isInStock(item.getSku()))
+        if(item == null || !Stock.isInStock(item.getSku()))
             return -1;
         items.add(item);
         return 1;
