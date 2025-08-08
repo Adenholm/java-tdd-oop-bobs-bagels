@@ -53,4 +53,33 @@ public class BagelShopTest {
         basket.add("COFB");
         Assertions.assertEquals(1.97f, basket.getTotalCost());
     }
+
+    @Test
+    public void testTotalPriceWithFillings(){
+        Basket basket = new Basket();
+        Assertions.assertEquals(0, basket.getTotalCost());
+        basket.add("BGLO");
+        Assertions.assertEquals(0.49f, basket.getTotalCost());
+        Bagel bagel = (Bagel) Stock.getItem("BGLS");
+        Assertions.assertTrue(bagel.addFilling(Stock.getItem("FILE")));
+        basket.add(bagel);
+        Assertions.assertEquals(1.1f, basket.getTotalCost());
+        bagel.addFilling(Stock.getItem("FILE"));
+        Assertions.assertEquals(1.22f, basket.getTotalCost());
+    }
+
+    @Test
+    public void testAddingFilling(){
+        Basket basket = new Basket();
+        Bagel bagel = (Bagel) Stock.getItem("BGLS");
+        Assertions.assertTrue(bagel.addFilling(Stock.getItem("FILE")));
+        Assertions.assertEquals(1, bagel.getFillings().size());
+    }
+
+    @Test
+    public void testAddingInvalidFilling(){
+        Basket basket = new Basket();
+        Bagel bagel = (Bagel) Stock.getItem("BGLS");
+        Assertions.assertFalse(bagel.addFilling(null));
+    }
 }
