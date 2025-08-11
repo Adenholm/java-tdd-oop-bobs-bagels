@@ -1,0 +1,60 @@
+package com.booleanuk.extension;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Stock {
+    static private List<Item> stock = Arrays.asList(
+            new Bagel("BGLO", 0.49f, "Onion"),
+            new Bagel("BGLP", 0.39f, "Plain"),
+            new Bagel("BGLE", 0.49f, "Everything"),
+            new Bagel("BGLS", 0.49f, "Sesame"),
+            new Coffee("COFB", 0.99f, "Black"),
+            new Coffee("COFW", 1.19f, "White"),
+            new Coffee("COFC", 1.29f, "Cappuccino"),
+            new Coffee("COFL", 1.29f, "Latte"),
+            new Filling("FILB", 0.12f, "Bacon"),
+            new Filling("FILE", 0.12f, "Egg"),
+            new Filling("FILC", 0.12f, "Cheese"),
+            new Filling("FILX", 0.12f, "Cream Cheese"),
+            new Filling("FILS", 0.12f, "Smoked Salmon"),
+            new Filling("FILH", 0.12f, "Ham"));
+
+
+    public static boolean isInStock(String sku) {
+        for (Item item: stock){
+            if (item.getSku().equals(sku)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Item getItem(String sku) {
+        for (Item item: stock){
+            if (item.getSku().equals(sku)){
+                return copyItem(item);
+            }
+        }
+        return null;
+    }
+
+    private static Item copyItem(Item item){
+        if (item instanceof Bagel)
+            return new Bagel(item.getSku(), item.getPrice(), item.getVariant());
+        if (item instanceof Coffee)
+            return new Coffee(item.getSku(), item.getPrice(), item.getVariant());
+        else
+            return new Filling(item.getSku(), item.getPrice(), item.getVariant());
+    }
+
+    public static List<Filling> getFillings() {
+        List<Filling> fillings = new ArrayList<>();
+        for (Item item: stock){
+            if (item instanceof Filling)
+                fillings.add((Filling)copyItem(item));
+        }
+        return fillings;
+    }
+}
