@@ -22,4 +22,28 @@ public class BagelExtTest {
         basket.add("BGLP", 16);
         Assertions.assertEquals(5.55f, basket.getDiscountedTotal(), 0.001);
     }
+
+    @Test
+    public void testGettingDiscountwithFillings(){
+        Basket basket = new Basket();
+        basket.setCapacity(25);
+        basket.add("BGLP", 16);
+        ((Bagel)basket.getItems().getFirst()).addFilling(Stock.getItem("FILC"));
+        ((Bagel)basket.getItems().getFirst()).addFilling(Stock.getItem("FILS"));
+        Assertions.assertEquals(5.55f + 0.24f, basket.getDiscountedTotal(), 0.001);
+    }
+
+    @Test
+    public void testprintReceipt(){
+        Basket basket = new Basket();
+        basket.setCapacity(25);
+        basket.add("BGLO", 2);
+        basket.add("BGLP", 12);
+        basket.add("BGLE", 6);
+        basket.add("COFB", 3);
+        Receipt receipt = new Receipt(basket);
+        receipt.printReceipt();
+    }
+
+
 }
