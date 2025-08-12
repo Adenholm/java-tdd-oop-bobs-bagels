@@ -1,9 +1,6 @@
 package com.booleanuk.extension;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Basket {
     private List<Item> items = new ArrayList<>();
@@ -81,33 +78,47 @@ public class Basket {
         return total;
     }
 
-    public double getDiscountedTotal(){
-        double discount = 0;
-        Map<String, Integer> count = countItems();
+    public float getDiscountedTotal(){
+        float total = 0;
+        for(PurchaseInfo info: getPurchaseInfo()){
+            total += info.getPrice();
+        }
+        return total;
+    }
+
+    public Collection<PurchaseInfo> getPurchaseInfo(){
+        Map<String, Integer> countMap = getAmounts();
+        Map<String, PurchaseInfo> info = new HashMap<>();
         // Check discounts for bagel
-        for (Map.Entry<String, Integer> entry : count.entrySet()) {
+        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
             String sku = entry.getKey();
             Integer n = entry.getValue();
             if(sku.substring(0, 3).equals("BGL")){
-                discount += getBagelDiscount(sku, n);
-                count.put(sku, count.get(sku) - (n - n%6));
+                float disc = getBagelDiscount(sku, n);
+                info.put(sku, new PurchaseInfo(sku, n, Stock.getItem(sku).getPrice()*n - disc, disc));
+                countMap.put(sku, countMap.get(sku) - (n - n%6));
             }
+            else
+                info.put(sku, new PurchaseInfo(sku, n, Stock.getItem(sku).getPrice()*n, 0));
         }
         // Check discount for Bagel & coffe combo
-        for (Map.Entry<String, Integer> entry : count.entrySet()) {
+        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
             String sku = entry.getKey();
             Integer n = entry.getValue();
             if(sku.substring(0, 3).equals("COF")){
+                float disc = 0;
                 for (int i = 0; i < n; i++) {
-                    discount += findBagelCoffeCombo(sku, count);
+                    disc += findBagelCoffeeCombo(sku, countMap);
                 }
+                info.get(sku).setDiscount(disc);
+                info.get(sku).setPrice(info.get(sku).getPrice()-disc);
             }
         }
-        return getTotalCost() - discount;
+        return info.values();
     }
 
-    private double getBagelDiscount(String sku, int count){
-        double discount = 0;
+    private float getBagelDiscount(String sku, int count){
+        float discount = 0;
         while (count >= 12) {
             discount += 12 * Stock.getItem(sku).getPrice() - 3.99f;
             count -= 12;
@@ -119,7 +130,7 @@ public class Basket {
         return discount;
     }
 
-    private float findBagelCoffeCombo(String coffeSku, Map<String, Integer> count){
+    private float findBagelCoffeeCombo(String coffeSku, Map<String, Integer> count){
         float disc = 0;
         for (Map.Entry<String, Integer> entry : count.entrySet()) {
             String sku = entry.getKey();
@@ -132,9 +143,17 @@ public class Basket {
         return disc;
     }
 
-    private Map<String, Integer> countItems(){
+    private Map<String, Integer> getAmounts(){
         Map<String, Integer> count = new HashMap<>();
         for(Item item: items){
+            if (item instanceof Bagel){
+                for(Item filling: ((Bagel) item).getFillings()){
+                    if (count.containsKey(filling.getSku()))
+                        count.put(filling.getSku(), count.get(filling.getSku()) + 1);
+                    else
+                        count.put(filling.getSku(), 1);
+                }
+            }
             if (count.containsKey(item.getSku()))
                 count.put(item.getSku(), count.get(item.getSku()) + 1);
             else
@@ -142,6 +161,4 @@ public class Basket {
         }
         return count;
     }
-
-
 }
