@@ -44,3 +44,10 @@ As a cutomer,
 So I know what I bought and the cost,
 I'd like to be able to print a recepit.
 ```
+
+### Extension 3
+```
+As a cutomer,
+So I know how much I saved,
+I'd like to see the discounts and the total mount saved on the receipt
+```
